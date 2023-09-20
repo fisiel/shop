@@ -16,6 +16,7 @@ import { UuidParam } from '../utils/params/uuid.param';
 import { AddCartItemDto } from './dto/add-cart-item.dto';
 import { CartItemParam } from './params/cart-item.param';
 import { UpdateCartItemDto } from './dto/update-cart-item.dto';
+import { CartItem } from './cart-item.entity';
 
 @Controller('carts')
 export class CartsController {
@@ -40,17 +41,17 @@ export class CartsController {
   addOneItem(
     @Param() cartIdParam: UuidParam,
     @Body() addCartItemDto: AddCartItemDto,
-  ) {
+  ): Promise<CartItem> {
     return this.cartsService.addOneItem(cartIdParam, addCartItemDto);
   }
 
   @Get('/:id/items')
-  getAllItems(@Param() cartIdParam: UuidParam) {
+  getAllItems(@Param() cartIdParam: UuidParam): Promise<CartItem[]> {
     return this.cartsService.getAllItems(cartIdParam);
   }
 
   @Get('/:cart_id/items/:item_id')
-  getOneItem(@Param() cartItemParam: CartItemParam) {
+  getOneItem(@Param() cartItemParam: CartItemParam): Promise<CartItem> {
     return this.cartsService.getOneItem(cartItemParam);
   }
 
@@ -58,17 +59,17 @@ export class CartsController {
   updateOneItem(
     @Param() cartItemParam: CartItemParam,
     @Body() updateCartItemDto: UpdateCartItemDto,
-  ) {
+  ): Promise<CartItem> {
     return this.cartsService.updateOneItem(cartItemParam, updateCartItemDto);
   }
 
   @Delete('/:id/items/')
-  deleteAllItems(@Param() cartIdParam: UuidParam) {
+  deleteAllItems(@Param() cartIdParam: UuidParam): Promise<void> {
     return this.cartsService.deleteAllItems(cartIdParam);
   }
 
   @Delete('/:cart_id/items/:item_id')
-  deleteOneItem(@Param() cartItemParam: CartItemParam) {
+  deleteOneItem(@Param() cartItemParam: CartItemParam): Promise<void> {
     return this.cartsService.deleteOneItem(cartItemParam);
   }
 }
