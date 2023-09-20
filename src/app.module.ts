@@ -22,7 +22,7 @@ import { SeedService } from './seed/seed.service';
       password: process.env['DB_PASSWD'],
       database: process.env['DB_NAME'],
       entities: [Product, Cart, CartItem],
-      synchronize: true,
+      synchronize: process.env['NODE_ENV'] !== 'production',
     }),
     ProductsModule,
     CartsModule,
